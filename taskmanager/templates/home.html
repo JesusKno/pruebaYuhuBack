@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+ <h1>Bienvenido</h1>
+
+ <ul>
+    {% for task in task_list %}
+        <li>
+           <a href="{% url 'updatetask' task.id %}">
+                <h2>{{task.tasktitle}}</h2>
+                <p>Descripcion: {{task.taskdescription}}</p>
+                <p>Responsable: {{task.email}}</p>
+           </a>
+        </li>
+        
+    {% endfor %}
+ </ul>
+
+{% endblock %}

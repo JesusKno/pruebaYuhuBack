@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{{error}}
+<h1>Hello world desde el sign up</h1>
+<form action="/signUp/" method="post">
+    {% csrf_token %}
+    {{formSignUp.as_p}}
+    <button>Iniciar sesion</button>
+</form>
+ 
+{% endblock %}
+    

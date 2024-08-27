@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{{error}}
+<h1>Hello world desde el sign up</h1>
+<form action="/task/create/" method="POST">
+    {% csrf_token %}
+    {{formNewTask}}
+    <button>Guardar</button>
+</form>
+ 
+{% endblock %}
