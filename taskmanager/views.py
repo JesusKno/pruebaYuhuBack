@@ -8,6 +8,11 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
+#Rest api
+from rest_framework.views import APIView
+from .serializer import taskSerializer
+from rest_framework.response import Response    
+
 from .forms import FormNewTask, Usercreationwithemail
 from .models import task
 
@@ -141,7 +146,21 @@ def send_email(email, subject, message_body, action):
     message.attach_alternative(content, 'text/html')
     message.send()
     
+
+#Rest api's
+
+class taskListApi(APIView):
+    authentication_classes = []
+    permission_classes = []
+    def get(self, req):
+        tasks = task.objects.all()
+        serializer = taskSerializer(tasks, many= True)
+        return Response(serializer.data)
     
+    def post(self, req):
+        tasks = task.objects.all()
+        serializer = taskSerializer(tasks, many= True)
+        return Response(serializer.data)
         
     
     

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'taskmanager',
 ]
 
@@ -136,3 +137,13 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'jcano1460@gmail.com'
 EMAIL_HOST_PASSWORD = 'srpq iryz vabn dkdq'
 EMAIL_USE_TLS = True
+
+#Rest api
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

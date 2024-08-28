@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from taskmanager import views
+from taskmanager.views import taskListApi
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
     path('signIn/', views.signIn, name='signin'),
     path('task/create/', views.newtask, name='newtask'),
     path('task/<int:task_id>/update', views.updatetask, name='updatetask'),
-    path('task/<int:task_id>/delete', views.deletetask, name='deletetask')
+    path('task/<int:task_id>/delete', views.deletetask, name='deletetask'),
+    path('api/task/', taskListApi.as_view(), name='tasklistapi')
 ]
