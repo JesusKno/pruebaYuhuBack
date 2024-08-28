@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'pruebayuhu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':'pruebayuhu',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT':'',
     }
 }
 
@@ -124,3 +128,11 @@ LOGIN_URL = '/signIn'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Email
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'jcano1460@gmail.com'
+EMAIL_HOST_PASSWORD = 'srpq iryz vabn dkdq'
+EMAIL_USE_TLS = True
