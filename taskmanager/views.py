@@ -9,7 +9,7 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
 #Rest api
-from rest_framework.views import APIView
+from rest_framework import viewsets
 from .serializer import taskSerializer
 from rest_framework.response import Response    
 
@@ -68,7 +68,7 @@ def signIn(req):
     })
 @login_required
 def home(req):
-    task_list = task.objects.filter(email = req.user)
+    task_list = task.objects.filter(user = req.user)
     
     return render(req, 'home.html', {
         'task_list': task_list
@@ -80,7 +80,7 @@ def newtask(req):
         try:
             form = FormNewTask(req.POST)
             new_task = form.save(commit=False)
-            new_task.email = req.user
+            new_task.user = req.user
             emailuser = req.user.email
             subject = 'Se creo una nueva tarea'
             message = req.POST['tasktitle']
@@ -100,7 +100,7 @@ def newtask(req):
     })
 @login_required   
 def updatetask(req, task_id):
-    task_update = get_object_or_404(task, pk=task_id, email = req.user)
+    task_update = get_object_or_404(task, pk=task_id, user = req.user)
     if req.method == 'GET': 
         form = FormNewTask(instance=task_update)
         return render(req, 'formUpdateTask.html', {
@@ -125,7 +125,7 @@ def updatetask(req, task_id):
         }) 
 @login_required           
 def deletetask(req, task_id):
-    task_delete = get_object_or_404(task, pk=task_id, email = req.user)
+    task_delete = get_object_or_404(task, pk=task_id, user = req.user)
     if req.method == 'POST': 
             task_delete.delete()
             return redirect('home')
@@ -149,18 +149,12 @@ def send_email(email, subject, message_body, action):
 
 #Rest api's
 
-class taskListApi(APIView):
+class taskApi(viewsets.ModelViewSet):
     authentication_classes = []
     permission_classes = []
-    def get(self, req):
-        tasks = task.objects.all()
-        serializer = taskSerializer(tasks, many= True)
-        return Response(serializer.data)
+    queryset = task.objects.all()
+    serializer_class = taskSerializer  
     
-    def post(self, req):
-        tasks = task.objects.all()
-        serializer = taskSerializer(tasks, many= True)
-        return Response(serializer.data)
         
     
     
